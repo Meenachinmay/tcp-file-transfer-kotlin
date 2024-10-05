@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.meenachinmay.filetransfer";
+
+package filetransfer;
+
+service FileTransfer {
+  rpc UploadFile (stream FileChunk) returns (FileUploadResponse);
+  rpc CompleteFileTransfer (CompleteFileRequest) returns (CompleteFileResponse);
+}
+
+message FileChunk {
+  bytes content = 1;
+  string fileName = 2;
+  int64 totalSize = 3;
+}
+
+message FileUploadResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message CompleteFileRequest {
+  string fileName = 1;
+}
+
+message CompleteFileResponse {
+  bool success = 1;
+  string message = 2;
+}
